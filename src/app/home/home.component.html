@@ -33,7 +33,10 @@
         </div>
 
         <div
-          *ngFor="let d of dataService.listArticle?.articles"
+          *ngFor="
+            let d of dataService.listArticle?.articles
+              | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
+          "
           class="article-preview"
         >
           <div class="article-meta">
@@ -80,7 +83,6 @@
           No articles are here... yet.
         </div>
       </div>
-
       <div class="col-md-3">
         <div class="sidebar">
           <p>Popular Tags</p>
@@ -96,5 +98,13 @@
         </div>
       </div>
     </div>
+    <ngb-pagination class="d-flex justify-content-center"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [directionLinks]="false"
+      [collectionSize]="dataService.listArticle?.articles.length"
+    ></ngb-pagination>
   </div>
 </div>
+<!-- 
+              | paginate: { itemsPerPage: 10, currentPage: p }) -->

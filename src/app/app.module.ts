@@ -2,8 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { MarkdownModule } from 'ngx-markdown';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -30,13 +33,16 @@ import { EditorComponent } from './editor/editor.component';
     CeArticleComponent,
     ArticleComponent,
     FavoriteComponent,
-    EditorComponent
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MarkdownModule.forRoot(),
+    NgxPaginationModule,
+    NgbModule
   ],
   providers: [
     {
