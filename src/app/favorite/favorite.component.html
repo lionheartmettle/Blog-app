@@ -1,0 +1,37 @@
+<div *ngIf="!dataService.boo">
+  <div *ngFor="let d of dataService.listArticle?.articles" class="article-preview">
+    <div class="article-meta" >
+      <a (click)="changeMy()"
+      routerLink="/home/{{d?.author.username}}" routerLinkActive="router-link-active" 
+        ><img src="{{d?.author.image}}"
+      /></a>
+      <div class="info">
+        <a (click)="changeMy()"
+        routerLink="/home/{{d?.author.username}}" routerLinkActive="router-link-active" class="author">{{d?.author.username}}</a>
+        <span class="date">{{d?.createdAt}}</span>
+      </div>
+      <button (click)="changeFavCount(d)"
+      class="btn btn-sm pull-xs-right"
+      [ngClass]="{'btn-outline-primary': !d?.favorited,
+                  'btn-primary': d?.favorited}">
+        <i class="ion-heart"></i> {{d?.favoritesCount}}
+      </button>
+    </div>
+    <a routerLink="/home/article/{{d?.slug}}" class="preview-link">
+      <h1>{{d?.title}}</h1>
+      <p>{{d?.description}}</p>
+      <span>Read more...</span>
+      <ul class="tag-list">
+        <li
+          *ngFor="let t of d.tagList"
+          class="tag-default tag-pill tag-outline"
+        >
+          {{ t }}
+        </li>
+      </ul>
+    </a>
+  </div>
+  <div class="article-preview" *ngIf="!(dataService.listArticle?.articles[0])">
+    No articles are here... yet.
+  </div>
+</div>

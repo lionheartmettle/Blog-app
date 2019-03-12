@@ -1,0 +1,100 @@
+<div class="home-page">
+  <div class="banner" *ngIf="!dataService.dataUser">
+    <div class="container">
+      <h1 class="logo-font">conduit</h1>
+      <p>A place to share your knowledge.</p>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <a
+                [ngClass]="['nav-link', boo ? '' : 'active']"
+                *ngIf="dataService.dataUser"
+                (click)="showArticleFeed()"
+                >Your Feed</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                [ngClass]="['nav-link', boo ? 'active' : '']"
+                (click)="showArticleGlobal()"
+                >Global Feed</a
+              >
+            </li>
+            <li class="nav-item" *ngIf="tag">
+              <a class="nav-link active" href>#{{ tag }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          *ngFor="let d of dataService.listArticle?.articles"
+          class="article-preview"
+        >
+          <div class="article-meta">
+            <a
+              routerLink="/home/{{ d?.author.username }}"
+              routerLinkActive="router-link-active"
+              ><img src="{{ d?.author.image }}"
+            /></a>
+            <div class="info">
+              <a
+                routerLink="/home/{{ d?.author.username }}"
+                routerLinkActive="router-link-active"
+                class="author"
+                >{{ d?.author.username }}</a
+              >
+              <span class="date">{{ d?.createdAt }}</span>
+            </div>
+            <button
+              (click)="changeFavCount(d)"
+              class="btn btn-sm pull-xs-right"
+              [ngClass]="{
+                'btn-outline-primary': !d?.favorited,
+                'btn-primary': d?.favorited
+              }"
+            >
+              <i class="ion-heart"></i> {{ d?.favoritesCount }}
+            </button>
+          </div>
+          <a routerLink="/home/article/{{ d?.slug }}" class="preview-link">
+            <h1>{{ d?.title }}</h1>
+            <p>{{ d?.description }}</p>
+            <span>Read more...</span>
+            <ul class="tag-list">
+              <li
+                *ngFor="let t of d.tagList"
+                class="tag-default tag-pill tag-outline"
+              >
+                {{ t }}
+              </li>
+            </ul>
+          </a>
+        </div>
+        <div class="article-preview" *ngIf="!at">
+          No articles are here... yet.
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="sidebar">
+          <p>Popular Tags</p>
+
+          <div class="tag-list">
+            <a
+              class="tag-pill tag-default"
+              *ngFor="let t of dataService.tags"
+              (click)="changeTag(t)"
+              >{{ t }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

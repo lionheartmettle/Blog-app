@@ -1,0 +1,364 @@
+<div class="article-page">
+  <div class="banner">
+    <div class="container">
+      <h1>{{ dataService.detailArticle?.article.title }}</h1>
+
+      <div class="article-meta">
+        <a
+          routerLink="/home/{{
+            dataService.detailArticle?.article.author.username
+          }}"
+          routerLinkActive="router-link-active"
+          ><img src="{{ dataService.detailArticle?.article.author.image }}"
+        /></a>
+        <div class="info">
+          <a
+            routerLink="/home/{{
+              dataService.detailArticle?.article.author.username
+            }}"
+            routerLinkActive="router-link-active"
+            class="author"
+            >{{ dataService.detailArticle?.article.author.username }}</a
+          >
+          <span class="date">{{
+            dataService.detailArticle?.article.createdAt | date
+          }}</span>
+        </div>
+        <div
+          style="display: inline-block"
+          *ngIf="
+            dataService.detailArticle?.article.author.username !==
+            dataService.dataUser?.user.username
+          "
+        >
+          <button
+            (click)="follow()"
+            class="btn btn-sm action-btn"
+            [ngClass]="{
+              'btn-outline-secondary': true,
+              'btn-secondary': false
+            }"
+            *ngIf="!dataService.profile?.profile.following"
+          >
+            <i class="ion-plus-round"></i>
+            &nbsp; Follow
+            {{ dataService.detailArticle?.article.author.username }}
+          </button>
+          <button
+            (click)="unfollow()"
+            class="btn btn-sm action-btn"
+            [ngClass]="{
+              'btn-outline-secondary': false,
+              'btn-secondary': true
+            }"
+            *ngIf="
+              dataService.detailArticle?.article.author.username !==
+                dataService.dataUser?.user.username &&
+              dataService.profile?.profile.following
+            "
+          >
+            <i class="ion-plus-round"></i>
+            &nbsp; Unfollow
+            {{ dataService.detailArticle?.article.author.username }}
+          </button>
+          &nbsp;&nbsp;
+          <button
+            (click)="favorite(dataService.detailArticle?.article)"
+            *ngIf="!dataService.detailArticle?.article.favorited"
+            class="btn btn-sm"
+            [ngClass]="{
+              'btn-outline-primary': true,
+              'btn-primary': false
+            }"
+          >
+            <i class="ion-heart"></i>
+            &nbsp; Favorite Article
+            <span class="counter"
+              >({{ dataService.detailArticle?.article.favoritesCount }})</span
+            >
+          </button>
+          <button
+            (click)="unFavorite(dataService.detailArticle?.article)"
+            *ngIf="dataService.detailArticle?.article.favorited"
+            class="btn btn-sm"
+            [ngClass]="{
+              'btn-outline-primary': false,
+              'btn-primary': true
+            }"
+          >
+            <i class="ion-heart"></i>
+            &nbsp; Unfavorite Article
+            <span class="counter"
+              >({{ dataService.detailArticle?.article.favoritesCount }})</span
+            >
+          </button>
+        </div>
+        <div
+          style="display: inline-block"
+          *ngIf="
+            dataService.detailArticle?.article.author.username ===
+            dataService.dataUser?.user.username
+          "
+        >
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            routerLink="/editor/{{ dataService.detailArticle?.article.slug }}"
+            routerLinkActive="router-link-active"
+          >
+            <i class="ion-edit"></i>
+            &nbsp; Edit Article
+          </button>
+          &nbsp;
+          <button
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteArticle()"
+          >
+            <i class="ion-trash-a"></i>
+            &nbsp; Delete Article
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row article-content">
+      <div class="col-md-12">
+        <p>
+          {{ dataService.detailArticle?.article.description }}
+        </p>
+        <h2 id="introducing-ionic">
+          {{ dataService.detailArticle?.article.body }}
+        </h2>
+        <ul class="tag-list">
+          <li *ngFor="let t of dataService.detailArticle?.article.tagList"
+            class="tag-default tag-pill tag-outline"
+          >
+            {{t}}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <div class="article-meta">
+        <a
+          routerLink="/home/{{
+            dataService.detailArticle?.article.author.username
+          }}"
+          routerLinkActive="router-link-active"
+        >
+          <img src="{{ dataService.detailArticle?.article.author.image }}" />
+        </a>
+        <div class="info">
+          <a
+            routerLink="/home/{{
+              dataService.detailArticle?.article.author.username
+            }}"
+            routerLinkActive="router-link-active"
+            class="author"
+            >{{ dataService.detailArticle?.article.author.username }}</a
+          >
+          <span class="date">{{
+            dataService.detailArticle?.article.createdAt | date
+          }}</span>
+        </div>
+        <div
+          style="display: inline-block"
+          *ngIf="
+            dataService.detailArticle?.article.author.username !==
+            dataService.dataUser?.user.username
+          "
+        >
+          <button
+            (click)="follow()"
+            class="btn btn-sm action-btn"
+            [ngClass]="{
+              'btn-outline-secondary': true,
+              'btn-secondary': false
+            }"
+            *ngIf="!dataService.profile?.profile.following"
+          >
+            <i class="ion-plus-round"></i>
+            &nbsp; Follow
+            {{ dataService.detailArticle?.article.author.username }}
+          </button>
+          <button
+            (click)="unfollow()"
+            class="btn btn-sm action-btn"
+            [ngClass]="{
+              'btn-outline-secondary': false,
+              'btn-secondary': true
+            }"
+            *ngIf="
+              dataService.detailArticle?.article.author.username !=
+                dataService.dataUser?.user.username &&
+              dataService.profile?.profile.following
+            "
+          >
+            <i class="ion-plus-round"></i>
+            &nbsp; Unfollow
+            {{ dataService.detailArticle?.article.author.username }}
+          </button>
+          &nbsp;
+          <button
+            (click)="favorite(dataService.detailArticle?.article)"
+            *ngIf="!dataService.detailArticle?.article.favorited"
+            class="btn btn-sm"
+            [ngClass]="{
+              'btn-outline-primary': true,
+              'btn-primary': false
+            }"
+          >
+            <i class="ion-heart"></i>
+            &nbsp; Favorite Article
+            <span class="counter"
+              >({{ dataService.detailArticle?.article.favoritesCount }})</span
+            >
+          </button>
+          <button
+            (click)="unFavorite(dataService.detailArticle?.article)"
+            *ngIf="dataService.detailArticle?.article.favorited"
+            class="btn btn-sm"
+            [ngClass]="{
+              'btn-outline-primary': false,
+              'btn-primary': true
+            }"
+          >
+            <i class="ion-heart"></i>
+            &nbsp; Unfavorite Article
+            <span class="counter"
+              >({{ dataService.detailArticle?.article.favoritesCount }})</span
+            >
+          </button>
+        </div>
+        <div
+          style="display: inline-block"
+          *ngIf="
+            dataService.detailArticle?.article.author.username ===
+            dataService.dataUser?.user.username
+          "
+        >
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            routerLink="/editor/{{ dataService.detailArticle?.article.slug }}"
+            routerLinkActive="router-link-active"
+          >
+            <i class="ion-edit"></i>
+            &nbsp; Edit Article
+          </button>
+          &nbsp;
+          <button
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteArticle()"
+          >
+            <i class="ion-trash-a"></i>
+            &nbsp; Delete Article
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+        <div *ngIf="dataService.dataUser == undefined">
+          <a routerLink="/signin" routerLinkActive="router-link-active"
+            >Sign in
+          </a>
+          or
+          <a routerLink="/signup" routerLinkActive="router-link-active"
+            >sign up
+          </a>
+          to add comments on this article.
+        </div>
+        <br />
+        <form
+          *ngIf="dataService.dataUser !== undefined"
+          class="card comment-form"
+          [formGroup]="commentForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="card-block">
+            <textarea
+              formControlName="body"
+              class="form-control"
+              placeholder="Write a comment..."
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="card-footer">
+            <img
+              [src]="
+                dataService.dataUser.user.image
+                  ? dataService.dataUser.user.image
+                  : 'https://static.productionready.io/images/smiley-cyrus.jpg'
+              "
+              class="comment-author-img"
+            />
+            <button class="btn btn-sm btn-primary" type="submit">
+              Post Comment
+            </button>
+          </div>
+        </form>
+
+        <div class="card" *ngFor="let c of dataService.comments?.comments">
+          <div class="card-block">
+            <p class="card-text">
+              {{ c.body }}
+            </p>
+          </div>
+          <div class="card-footer">
+            <a
+              routerLink="/home/{{ c?.author.username }}"
+              routerLinkActive="router-link-active"
+              class="comment-author"
+            >
+              <img src="{{ c?.author.image }}" class="comment-author-img" />
+            </a>
+            &nbsp;
+            <a
+              routerLink="/home/{{ c?.author.username }}"
+              routerLinkActive="router-link-active"
+              class="comment-author"
+              >{{ c?.author.username }}</a
+            >
+            <span class="date-posted">{{ c?.createdAt | date }}</span>
+            <span
+              class="mod-options"
+              *ngIf="c?.author.username === dataService.dataUser?.user.username"
+              (click)="deleteComment(c.id)"
+            >
+              <i class="ion-trash-a"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- <div class="card">
+          <div class="card-block">
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional
+              content.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="" class="comment-author">
+              <img
+                src="http://i.imgur.com/Qr71crq.jpg"
+                class="comment-author-img"
+              />
+            </a>
+            &nbsp;
+            <a href="" class="comment-author">Jacob Schmidt</a>
+            <span class="date-posted">Dec 29th</span>
+            <span class="mod-options">
+              <i class="ion-edit"></i>
+              <i class="ion-trash-a"></i>
+            </span>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
