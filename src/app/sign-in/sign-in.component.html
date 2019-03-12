@@ -4,29 +4,38 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign In</h1>
         <p class="text-xs-center">
-          <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Need an account?</a>
+          <a [routerLink]="['/signup']" routerLinkActive="router-link-active"
+            >Need an account?</a
+          >
         </p>
 
         <ul class="error-messages">
-          <li *ngIf="error">email or password is invalid</li>
+          <li *ngIf="error">Email or Password is invalid</li>
         </ul>
 
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
           <fieldset class="form-group">
-            <input formControlName="email"
+            <input
+              formControlName="email"
               class="form-control form-control-lg"
               type="text"
               placeholder="Email"
+              required
             />
           </fieldset>
           <fieldset class="form-group">
-            <input formControlName="password"
+            <input
+              formControlName="password"
               class="form-control form-control-lg"
               type="password"
               placeholder="Password"
+              required
             />
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+          <button
+            class="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+          >
             Sign In
           </button>
         </form>

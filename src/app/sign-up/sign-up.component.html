@@ -4,38 +4,49 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign up</h1>
         <p class="text-xs-center">
-          <a [routerLink]="['/signin']" routerLinkActive="router-link-active" >Have an account?</a>
+          <a [routerLink]="['/signin']" routerLinkActive="router-link-active"
+            >Have an account?</a
+          >
         </p>
 
         <ul class="error-messages">
-          <li *ngFor="let u of errors?.username">username {{u}}</li>
-          <li *ngFor="let e of errors?.email">email {{e}}</li>
-          <li *ngFor="let p of errors?.password">password {{p}}</li>
+          <li *ngFor="let u of errors?.username">Username {{ u }}</li>
+          <li *ngFor="let e of errors?.email">Email {{ e }}</li>
+          <li *ngFor="let p of errors?.password">Password {{ p }}</li>
         </ul>
 
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
           <fieldset class="form-group">
-            <input formControlName="username"
+            <input
+              formControlName="username"
               class="form-control form-control-lg"
               type="text"
+              required
               placeholder="Your Name"
             />
           </fieldset>
           <fieldset class="form-group">
-            <input formControlName="email"
+            <input
+              formControlName="email"
               class="form-control form-control-lg"
               type="text"
+              required
               placeholder="Email"
             />
           </fieldset>
           <fieldset class="form-group">
-            <input formControlName="password"
+            <input
+              formControlName="password"
               class="form-control form-control-lg"
               type="password"
+              required
               placeholder="Password"
             />
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+          <button
+            class="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+          >
             Sign up
           </button>
         </form>
