@@ -15,12 +15,11 @@ export class FavoriteComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.actRout.parent.params.subscribe(res => console.log(res));
-    const pos = this.router.url.lastIndexOf('favorite') - 1;
-    const username = this.router.url.substring(6, pos);
-    console.log(username);
-    this.dataService.getFavoriteArticle(username).subscribe((res: ListArticle) => {
-      this.dataService.listArticle = res;
+    this.actRout.parent.paramMap.subscribe((resP: ParamMap) => {
+      console.log(resP.get('profile'));
+      this.dataService.getFavoriteArticle(resP.get('profile')).subscribe((res: ListArticle) => {
+        this.dataService.listArticle = res;
+      });
     });
   }
   changeMy() {
