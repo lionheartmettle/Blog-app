@@ -1,15 +1,16 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, HostListener } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { DataService } from "../data.service";
 import { Router } from "@angular/router";
 import { DetailArticle } from "../data.modle";
+import { CanComponentDeactivate } from '../deactivate.service';
 
 @Component({
   selector: "app-ce-article",
   templateUrl: "./ce-article.component.html",
   styleUrls: ["./ce-article.component.css"],
 })
-export class CeArticleComponent implements OnInit {
+export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   createArticleform: FormGroup;
   tagForm = [];
   errors: {
@@ -60,5 +61,17 @@ export class CeArticleComponent implements OnInit {
         this.errors = error.error.errors;
       }
     );
+  }
+
+  canDeactivate() {
+    if (this.createArticleform.controls.body.dirty) {
+      return window.confirm('Are you sure to quit ?');
+    }
+    return true;
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHander(event) {
+    return this.canDeactivate();
   }
 }
