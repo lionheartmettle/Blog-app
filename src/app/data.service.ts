@@ -22,7 +22,7 @@ export class DataService {
 
   getArticle(tag: string) {
     return this.httpClient.get(this.URL_Article, {params: {
-      limit: '20',
+      limit: '50',
       offset: '0',
       tag: tag
     }});

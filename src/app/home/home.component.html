@@ -34,8 +34,8 @@
 
         <div
           *ngFor="
-            let d of dataService.listArticle?.articles
-              | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
+            let d of (dataService.listArticle?.articles
+              | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize)
           "
           class="article-preview"
         >
@@ -98,7 +98,8 @@
         </div>
       </div>
     </div>
-    <ngb-pagination class="d-flex justify-content-center"
+    <ngb-pagination
+      class="d-flex justify-content-center"
       [(page)]="page"
       [pageSize]="pageSize"
       [directionLinks]="false"
@@ -106,5 +107,3 @@
     ></ngb-pagination>
   </div>
 </div>
-<!-- 
-              | paginate: { itemsPerPage: 10, currentPage: p }) -->

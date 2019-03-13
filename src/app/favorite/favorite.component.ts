@@ -9,7 +9,8 @@ import { ParamMap, ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./favorite.component.css']
 })
 export class FavoriteComponent implements OnInit {
-
+  page = 1;
+  pageSize = 5;
   constructor(private dataService: DataService, private actRout: ActivatedRoute, private router: Router) {
     dataService.boo = false;
   }

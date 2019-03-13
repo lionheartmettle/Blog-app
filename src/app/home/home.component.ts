@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  page = 5;
+  page = 1;
   pageSize = 10;
   profile = 'Eric Simons';
   tag: string;

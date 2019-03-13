@@ -1,25 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MarkdownModule } from 'ngx-markdown';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { AppRoutingModule } from './app-routing.module';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { MarkdownModule } from "ngx-markdown";
+import { NgxPaginationModule } from "ngx-pagination";
+import { AppRoutingModule } from "./app-routing.module";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SettingComponent } from './setting/setting.component';
-import { CeArticleComponent } from './ce-article/ce-article.component';
-import { ArticleComponent } from './article/article.component';
+import { AppComponent } from "./app.component";
+import { HomeComponent } from "./home/home.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { SignInComponent } from "./sign-in/sign-in.component";
+import { SignUpComponent } from "./sign-up/sign-up.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { SettingComponent } from "./setting/setting.component";
+import { CeArticleComponent } from "./ce-article/ce-article.component";
+import { ArticleComponent } from "./article/article.component";
 
-import { TokenInterceptorService } from './tokenInterceptor';
-import { FavoriteComponent } from './favorite/favorite.component';
-import { EditorComponent } from './editor/editor.component';
+import { TokenInterceptorService } from "./tokenInterceptor";
+import { FavoriteComponent } from "./favorite/favorite.component";
+import { EditorComponent } from "./editor/editor.component";
+import { MarkdownPipe } from "./article/markdown.pipe";
 
 @NgModule({
   declarations: [
@@ -34,23 +35,23 @@ import { EditorComponent } from './editor/editor.component';
     ArticleComponent,
     FavoriteComponent,
     EditorComponent,
+    MarkdownPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MarkdownModule.forRoot(),
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

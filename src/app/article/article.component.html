@@ -124,12 +124,8 @@
   <div class="container page">
     <div class="row article-content">
       <div class="col-md-12">
-        <p>
-          {{ dataService.detailArticle?.article.description }}
-        </p>
-        <h2 id="introducing-ionic">
-          {{ dataService.detailArticle?.article.body }}
-        </h2>
+        <div [innerHTML]= "dataService.detailArticle?.article.body | markdown">
+        </div>
         <ul class="tag-list">
           <li *ngFor="let t of dataService.detailArticle?.article.tagList"
             class="tag-default tag-pill tag-outline"

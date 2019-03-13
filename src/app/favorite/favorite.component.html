@@ -2,7 +2,7 @@
   <div
     *ngFor="
       let d of (dataService.listArticle?.articles
-        | paginate: { itemsPerPage: 10, currentPage: p })
+      | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize)
     "
     class="article-preview"
   >
@@ -51,5 +51,11 @@
   <div class="article-preview" *ngIf="!(dataService.listArticle?.articles)[0]">
     No articles are here... yet.
   </div>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  <ngb-pagination
+      class="d-flex justify-content-center"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [directionLinks]="false"
+      [collectionSize]="dataService.listArticle?.articles.length"
+    ></ngb-pagination>
 </div>
