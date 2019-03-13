@@ -21,8 +21,8 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   constructor(private dataService: DataService, private router: Router) {
     this.createArticleform = new FormGroup({
       title: new FormControl("", [Validators.required]),
-      description: new FormControl(),
-      body: new FormControl(),
+      description: new FormControl("", [Validators.required]),
+      body: new FormControl("", [Validators.required]),
       tagList: new FormControl(),
     });
   }
@@ -65,7 +65,11 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
 
   canDeactivate() {
     if (this.createArticleform.controls.body.dirty) {
-      return window.confirm('Are you sure to quit ?');
+      if (this.createArticleform.invalid) {
+        console.log(this.createArticleform);
+        return window.confirm('Are you sure to quit ?');
+      }
+      return true;
     }
     return true;
   }
