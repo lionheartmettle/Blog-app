@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Conduit-app';
   constructor(private dataService: DataService, private router: Router) {
-    console.log('app work');
     const data = localStorage.getItem('myTodo');
     if (!data) {
     } else {
@@ -27,7 +26,6 @@ export class AppComponent {
   watchIn() {
     if (this.dataService.dataUser) {
       if (((new Date()).getTime() - this.dataService.time) > 10000) {
-        console.log((new Date()).getTime() - this.dataService.time);
         localStorage.clear();
         alert('You dont use this app to long, plz sign in again !');
         this.router.navigateByUrl('/');
@@ -38,7 +36,6 @@ export class AppComponent {
   watchOut() {
     if (this.dataService.dataUser) {
       this.dataService.time = (new Date()).getTime();
-      console.log(this.dataService.time);
     }
   }
 }

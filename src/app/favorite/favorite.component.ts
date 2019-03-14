@@ -32,7 +32,6 @@ export class FavoriteComponent implements OnInit {
       this.o = String(Number(this.o) + Number(num) * 5 - 5);
     }
     this.actRout.parent.paramMap.subscribe((resP: ParamMap) => {
-      console.log(resP.get('profile'));
       this.dataService.getFavoriteArticle(resP.get('profile'), this.o).subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
       });

@@ -4,6 +4,12 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Your Settings</h1>
 
+        <ul class="error-messages">
+          <li *ngFor="let u of errors?.username">Username {{ u }}</li>
+          <li *ngFor="let e of errors?.email">Email {{ e }}</li>
+          <li *ngFor="let p of errors?.password">Password {{ p }}</li>
+        </ul>
+        
         <form [formGroup]="settingForm" (ngSubmit)="onSubmit()">
           <fieldset>
             <fieldset class="form-group">

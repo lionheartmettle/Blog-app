@@ -71,7 +71,6 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   canDeactivate() {
     if (this.createArticleform.controls.body.dirty) {
       if (this.createArticleform.invalid) {
-        console.log(this.createArticleform);
         return window.confirm('Are you sure to quit ?');
       }
       return true;
@@ -83,7 +82,6 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   beforeUnloadHander(event) {
     if (this.createArticleform.controls.body.dirty) {
       if (this.createArticleform.invalid) {
-        console.log(this.createArticleform);
         return false;
       }
       return true;

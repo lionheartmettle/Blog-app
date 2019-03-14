@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
         d.favoritesCount += 1;
         this.dataService
           .postFavArticle(d.slug)
-          .subscribe(res => console.log(res));
+          .subscribe();
       }
     }
   }

@@ -37,12 +37,10 @@ export class SignInComponent implements OnInit {
         this.error = undefined;
         localStorage.setItem('myTodo', JSON.stringify(res));
         this.dataService.time = (new Date()).getTime();
-        console.log(this.dataService.time);
         this.router.navigateByUrl('/');
       },
       (error: any) => {
         this.error = error.error.errors['email or password'][0];
-        console.log(this.error);
       }
     );
   }

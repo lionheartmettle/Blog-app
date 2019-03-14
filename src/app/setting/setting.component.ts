@@ -12,6 +12,11 @@ import { DataUser, UpdateUser } from '../data.modle';
 export class SettingComponent implements OnInit {
   settingForm: FormGroup;
   update: UpdateUser;
+  errors: {
+    username: string[];
+    email: string[];
+    password: string[];
+  };
 
   constructor(private router: Router, private dataService: DataService) {
     this.settingForm = new FormGroup({
@@ -51,12 +56,13 @@ export class SettingComponent implements OnInit {
       this.dataService.dataUser = res;
       localStorage.setItem('myTodo', JSON.stringify(res));
       this.router.navigateByUrl(`/home/${res.user.username}`);
+    }, (error: any) => {
+      this.errors = error.error.errors;
     });
   }
+
   logout() {
     localStorage.clear();
-
     this.router.navigateByUrl('/home');
-    // window.location.reload();
   }
 }

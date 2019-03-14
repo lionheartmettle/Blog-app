@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
     } else {
       d.favorited = true;
       d.favoritesCount += 1;
-      this.dataService.postFavArticle(d.slug).subscribe((res) => console.log(res));
+      this.dataService.postFavArticle(d.slug).subscribe();
     }
   }
   showFavoriteArticle(num: number) {
