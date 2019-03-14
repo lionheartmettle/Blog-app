@@ -74,8 +74,14 @@ export class HomeComponent implements OnInit {
         });
     }
   }
-  changeTag(tag: string) {
+  changeTag(tag: string, num) {
     this.tag = tag;
+    this.o = "0";
+    this.currentPage = 1;
+    if (num != undefined) {
+      this.o = String(Number(this.o) + Number(num) * 10 - 10);
+      this.currentPage = num;
+    }
     this.dataService.getArticle(tag, this.o).subscribe((res: ListArticle) => {
       this.dataService.listArticle = res;
     });

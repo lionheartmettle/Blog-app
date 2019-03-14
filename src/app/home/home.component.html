@@ -107,6 +107,7 @@
               class="tag-pill tag-default"
               *ngFor="let t of dataService.tags"
               (click)="changeTag(t)"
+              (click)="data()"
               >{{ t }}</a
             >
           </div>
