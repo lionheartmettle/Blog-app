@@ -27,7 +27,6 @@ export class ArticleComponent implements OnInit {
       });
       this.dataService.getComment(params.get('slug')).subscribe((comments: Comments) => {
         this.dataService.comments = comments;
-        console.log(comments);
       });
     });
   }

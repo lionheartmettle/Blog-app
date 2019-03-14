@@ -34,6 +34,10 @@ export class HomeComponent implements OnInit {
       this.dataService.getArticle('', '0').subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
         this.at = true;
+        this.arr = [];
+        for (let i = 0; i < res.articlesCount / 10; i++) {
+          this.arr.push(i + 1);
+        }
       });
       this.boo = true;
       this.foo = true;
