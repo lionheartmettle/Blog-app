@@ -1,8 +1,7 @@
 <div *ngIf="!dataService.boo">
   <div
     *ngFor="
-      let d of (dataService.listArticle?.articles
-      | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize)
+      let d of dataService.listArticle?.articles
     "
     class="article-preview"
   >
@@ -48,14 +47,21 @@
       </ul>
     </a>
   </div>
+  <nav aria-label="Page navigation">
+    <ul
+      class="pagination"
+    >
+      <li class="page-item" *ngFor="let i of arr" 
+      [ngClass]="{'active': i === currentPage}" (click)="showFavoriteArticle(i)">
+        <a
+          class="page-link"
+          routerLinkActive="router-link-active"
+          >{{ i }}</a
+        >
+      </li>
+    </ul>
+  </nav>
   <div class="article-preview" *ngIf="!(dataService.listArticle?.articles)[0]">
     No articles are here... yet.
   </div>
-  <ngb-pagination
-      class="d-flex justify-content-center"
-      [(page)]="page"
-      [pageSize]="pageSize"
-      [directionLinks]="false"
-      [collectionSize]="dataService.listArticle?.articles.length"
-    ></ngb-pagination>
 </div>

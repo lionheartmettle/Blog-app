@@ -13,7 +13,7 @@
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
               <a
-                [ngClass]="['nav-link', boo ? '' : 'active']"
+                [ngClass]="['nav-link', (!boo && foo) ? 'active' : '']"
                 *ngIf="dataService.dataUser"
                 (click)="showArticleFeed()"
                 >Your Feed</a
@@ -21,22 +21,23 @@
             </li>
             <li class="nav-item">
               <a
-                [ngClass]="['nav-link', boo ? 'active' : '']"
+                [ngClass]="['nav-link', (boo && foo) ? 'active' : '']"
                 (click)="showArticleGlobal()"
+                (click)="data()"
                 >Global Feed</a
               >
             </li>
             <li class="nav-item" *ngIf="tag">
-              <a class="nav-link active" href>#{{ tag }}</a>
+              <a
+                class="nav-link active"
+                >#{{ tag }}</a
+              >
             </li>
           </ul>
         </div>
 
         <div
-          *ngFor="
-            let d of (dataService.listArticle?.articles
-              | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize)
-          "
+          *ngFor="let d of dataService.listArticle?.articles"
           class="article-preview"
         >
           <div class="article-meta">
@@ -82,6 +83,20 @@
         <div class="article-preview" *ngIf="!at">
           No articles are here... yet.
         </div>
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li
+              class="page-item"
+              *ngFor="let i of arr"
+              [ngClass]="{ active: i === currentPage }"
+              (click)="showArticleGlobal(i)"
+            >
+              <a class="page-link" routerLinkActive="router-link-active">{{
+                i
+              }}</a>
+            </li>
+          </ul>
+        </nav>
       </div>
       <div class="col-md-3">
         <div class="sidebar">
@@ -98,12 +113,5 @@
         </div>
       </div>
     </div>
-    <ngb-pagination
-      class="d-flex justify-content-center"
-      [(page)]="page"
-      [pageSize]="pageSize"
-      [directionLinks]="false"
-      [collectionSize]="dataService.listArticle?.articles.length"
-    ></ngb-pagination>
   </div>
 </div>

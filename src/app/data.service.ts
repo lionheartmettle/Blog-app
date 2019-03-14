@@ -20,10 +20,10 @@ export class DataService {
   boo = true;
   constructor(private httpClient: HttpClient) { }
 
-  getArticle(tag: string) {
+  getArticle(tag: string, off: string) {
     return this.httpClient.get(this.URL_Article, {params: {
-      limit: '50',
-      offset: '0',
+      limit: '10',
+      offset: off,
       tag: tag
     }});
   }
@@ -40,19 +40,19 @@ export class DataService {
       author: userName
     }});
   }
-  getArticleByFeed() {
+  getArticleByFeed(off: string) {
     return this.httpClient.get(`${this.URL_Article}/feed`, {params: {
       limit: '10',
-      offset: '0'
+      offset: off
     }});
   }
   getOneArticle(slug: string) {
     return this.httpClient.get(this.URL_Article + `/${slug}`);
   }
-  getFavoriteArticle(userName: string) {
+  getFavoriteArticle(userName: string, off: string) {
     return this.httpClient.get(this.URL_Article, {params: {
       limit: '10',
-      offset: '0',
+      offset: off,
       favorited: userName
     }});
   }
