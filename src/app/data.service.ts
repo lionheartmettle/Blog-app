@@ -18,6 +18,7 @@ export class DataService {
   comments: Comments;
   dataUser: DataUser;
   boo = true;
+  time: any;
   constructor(private httpClient: HttpClient) { }
 
   getArticle(tag: string, off: string) {
