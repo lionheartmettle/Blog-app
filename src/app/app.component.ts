@@ -17,10 +17,10 @@ export class AppComponent {
       this.dataService.dataUser = JSON.parse(data);
     }
   }
-  change() {
-    this.dataService.boo = true;
-    this.dataService.getArticleByProfile(this.dataService.dataUser.user.username).subscribe((atrs: ListArticle) => {
-      this.dataService.listArticle = atrs;
-    });
-  }
+  // change() {
+  //   this.dataService.boo = true;
+  //   this.dataService.getArticleByProfile(this.dataService.dataUser.user.username, '0').subscribe((atrs: ListArticle) => {
+  //     this.dataService.listArticle = atrs;
+  //   });
+  // }
 }

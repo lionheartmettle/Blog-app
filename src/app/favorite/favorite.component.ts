@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ListArticle, Profile, DetailArticle } from '../data.modle';
-import { ParamMap, ActivatedRoute, Router } from '@angular/router';
+import { ListArticle, DetailArticle } from '../data.modle';
+import { ParamMap, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-favorite',
@@ -9,8 +9,8 @@ import { ParamMap, ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./favorite.component.css']
 })
 export class FavoriteComponent implements OnInit {
-
-  constructor(private dataService: DataService, private actRout: ActivatedRoute, private router: Router) {
+  o: string;
+  constructor(private dataService: DataService, private actRout: ActivatedRoute) {
     dataService.boo = false;
   }
   arr = [];
@@ -18,26 +18,26 @@ export class FavoriteComponent implements OnInit {
   ngOnInit() {
     this.actRout.parent.paramMap.subscribe((resP: ParamMap) => {
       console.log(resP.get('profile'));
-      this.dataService.getFavoriteArticle(resP.get('profile'),"0").subscribe((res: ListArticle) => {
+      this.dataService.getFavoriteArticle(resP.get('profile'), '0').subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
-        for (let i = 0; i < res.articlesCount / 10; i++) {
+        for (let i = 0; i < res.articlesCount / 5; i++) {
           this.arr.push(i + 1);
         }
       });
     });
   }
-  o: string;
-  showFavoriteArticle(num){
-    this.o = "0";
-    if (num != undefined) {
-      this.o = String(Number(this.o) + Number(num) * 10 - 10);
+
+  showFavoriteArticle(num: number) {
+    this.o = '0';
+    if (num !== undefined) {
+      this.o = String(Number(this.o) + Number(num) * 5 - 5);
     }
     this.actRout.parent.paramMap.subscribe((resP: ParamMap) => {
       console.log(resP.get('profile'));
-      this.dataService.getFavoriteArticle(resP.get('profile'),this.o).subscribe((res: ListArticle) => {
+      this.dataService.getFavoriteArticle(resP.get('profile'), this.o).subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
       });
-    }); 
+    });
     this.currentPage = num;
   }
   changeMy() {

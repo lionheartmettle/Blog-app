@@ -24,7 +24,7 @@
         <a class="nav-link" routerLink="/signup" routerLinkActive="router-link-active" >Sign up</a>
       </li>
       <li class="nav-item" *ngIf="dataService.dataUser">
-        <a (click)="change()"
+        <a 
         routerLink="/home/{{dataService.dataUser.user.username}}" routerLinkActive="router-link-active" 
         class="nav-link"
         ><img class="user-pic" src="{{dataService.dataUser.user.image}}"

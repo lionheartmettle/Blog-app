@@ -33,10 +33,10 @@ export class DataService {
   getProfile(userName: string) {
     return this.httpClient.get(this.URL_Profile + userName);
   }
-  getArticleByProfile(userName: string) {
+  getArticleByProfile(userName: string, numOff: string) {
     return this.httpClient.get(this.URL_Article, {params: {
-      limit: '10',
-      offset: '0',
+      limit: '5',
+      offset: numOff,
       author: userName
     }});
   }
@@ -51,7 +51,7 @@ export class DataService {
   }
   getFavoriteArticle(userName: string, off: string) {
     return this.httpClient.get(this.URL_Article, {params: {
-      limit: '10',
+      limit: '5',
       offset: off,
       favorited: userName
     }});

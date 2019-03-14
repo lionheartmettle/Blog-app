@@ -1,4 +1,4 @@
-<div *ngIf="!dataService.boo">
+<div *ngIf="!dataService.boo" id="top">
   <div
     *ngFor="
       let d of dataService.listArticle?.articles
@@ -53,7 +53,7 @@
     >
       <li class="page-item" *ngFor="let i of arr" 
       [ngClass]="{'active': i === currentPage}" (click)="showFavoriteArticle(i)">
-        <a
+        <a href="#top"
           class="page-link"
           routerLinkActive="router-link-active"
           >{{ i }}</a

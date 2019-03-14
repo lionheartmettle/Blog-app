@@ -9,6 +9,9 @@ import { Profile, ListArticle, DetailArticle } from '../data.modle';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  arr = [];
+  currentPage = 1;
+  o: string;
   constructor(private actRout: ActivatedRoute, private dataService: DataService, private router: Router) {
     dataService.boo = true;
   }
@@ -21,8 +24,11 @@ export class ProfileComponent implements OnInit {
         this.router.navigateByUrl('**');
       });
       if (this.dataService.boo) {
-        this.dataService.getArticleByProfile(params.get('profile')).subscribe((atrs: ListArticle) => {
+        this.dataService.getArticleByProfile(params.get('profile'), '0').subscribe((atrs: ListArticle) => {
           this.dataService.listArticle = atrs;
+          for (let i = 0; i < atrs.articlesCount / 5; i++) {
+            this.arr.push(i + 1);
+          }
         });
       }
     });
@@ -33,7 +39,7 @@ export class ProfileComponent implements OnInit {
       this.dataService.getProfile(params.get('profile')).subscribe((pro: Profile) => {
         this.dataService.profile = pro;
       });
-      this.dataService.getArticleByProfile(params.get('profile')).subscribe((atrs: ListArticle) => {
+      this.dataService.getArticleByProfile(params.get('profile'), '0').subscribe((atrs: ListArticle) => {
         this.dataService.listArticle = atrs;
       });
     });
@@ -65,5 +71,18 @@ export class ProfileComponent implements OnInit {
       d.favoritesCount += 1;
       this.dataService.postFavArticle(d.slug).subscribe((res) => console.log(res));
     }
+  }
+  showFavoriteArticle(num: number) {
+    this.o = '0';
+    if (num !== undefined) {
+      this.o = String(Number(this.o) + Number(num) * 5 - 5);
+    }
+    this.actRout.paramMap.subscribe((resP: ParamMap) => {
+      console.log(resP.get('profile'));
+      this.dataService.getArticleByProfile(resP.get('profile'), this.o).subscribe((res: ListArticle) => {
+        this.dataService.listArticle = res;
+      });
+    });
+    this.currentPage = num;
   }
 }

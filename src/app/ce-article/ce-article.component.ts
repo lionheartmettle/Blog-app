@@ -1,14 +1,14 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { DataService } from "../data.service";
-import { Router } from "@angular/router";
-import { DetailArticle } from "../data.modle";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DataService } from '../data.service';
+import { Router } from '@angular/router';
+import { DetailArticle } from '../data.modle';
 import { CanComponentDeactivate } from '../deactivate.service';
 
 @Component({
-  selector: "app-ce-article",
-  templateUrl: "./ce-article.component.html",
-  styleUrls: ["./ce-article.component.css"],
+  selector: 'app-ce-article',
+  templateUrl: './ce-article.component.html',
+  styleUrls: ['./ce-article.component.css'],
 })
 export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   createArticleform: FormGroup;
@@ -20,9 +20,9 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   };
   constructor(private dataService: DataService, private router: Router) {
     this.createArticleform = new FormGroup({
-      title: new FormControl("", [Validators.required]),
-      description: new FormControl("", [Validators.required]),
-      body: new FormControl("", [Validators.required]),
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      body: new FormControl('', [Validators.required]),
       tagList: new FormControl(),
     });
   }
@@ -30,10 +30,10 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
   ngOnInit() {}
 
   addTags(input) {
-    if (input.value !== "") {
+    if (input.value !== '') {
       this.tagForm.push(input.value);
     }
-    input.value = "";
+    input.value = '';
   }
 
   deleteTag(i) {
@@ -42,12 +42,12 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
 
   onSubmit() {
     console.log(this.createArticleform.value);
-    console.log("form wrk");
+    console.log('form wrk');
     const crArticle = {
       article: {
-        title: this.createArticleform.get("title").value,
-        description: this.createArticleform.get("description").value,
-        body: this.createArticleform.get("body").value,
+        title: this.createArticleform.get('title').value,
+        description: this.createArticleform.get('description').value,
+        body: this.createArticleform.get('body').value,
         tagList: this.tagForm,
       },
     };
