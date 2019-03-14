@@ -10,6 +10,7 @@ import { SettingComponent } from './setting/setting.component';
 import { CeArticleComponent } from './ce-article/ce-article.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { EditorComponent } from './editor/editor.component';
+import { DeactivateService } from './deactivate.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -17,7 +18,7 @@ const routes: Routes = [
   {path: 'signup', component: SignUpComponent},
   {path: 'signin', component: SignInComponent},
   {path: 'setting', component: SettingComponent},
-  {path: 'editor', component: CeArticleComponent},
+  {path: 'editor', component: CeArticleComponent, canDeactivate: [DeactivateService]},
   {path: 'home/:profile', component: ProfileComponent, children: [
       {path: 'favorite', component: FavoriteComponent}
     ]
