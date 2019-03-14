@@ -11,12 +11,13 @@ import { CeArticleComponent } from './ce-article/ce-article.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { EditorComponent } from './editor/editor.component';
 import { DeactivateService } from './deactivate.service';
+import { AuthGuardService } from './auth-guard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'signin', component: SignInComponent},
+  {path: 'signup', component: SignUpComponent, canActivate: [AuthGuardService]},
+  {path: 'signin', component: SignInComponent, canActivate: [AuthGuardService]},
   {path: 'setting', component: SettingComponent},
   {path: 'editor', component: CeArticleComponent, canDeactivate: [DeactivateService]},
   {path: 'home/:profile', component: ProfileComponent, children: [

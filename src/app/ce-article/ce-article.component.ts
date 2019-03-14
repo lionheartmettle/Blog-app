@@ -25,6 +25,11 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
       body: new FormControl('', [Validators.required]),
       tagList: new FormControl(),
     });
+    const data = localStorage.getItem('myTodo');
+    if (!data) {
+      this.router.navigateByUrl('/');
+    } else {
+    }
   }
   a: string;
   ngOnInit() {}
@@ -76,6 +81,13 @@ export class CeArticleComponent implements OnInit, CanComponentDeactivate {
 
   @HostListener('window:beforeunload', ['$event'])
   beforeUnloadHander(event) {
-    return this.canDeactivate();
+    if (this.createArticleform.controls.body.dirty) {
+      if (this.createArticleform.invalid) {
+        console.log(this.createArticleform);
+        return false;
+      }
+      return true;
+    }
+    return true;
   }
 }
