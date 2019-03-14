@@ -1,36 +1,37 @@
-import { Component, OnInit } from "@angular/core";
-import { DataService } from "../data.service";
-import { ListArticle, DetailArticle } from "../data.modle";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { ListArticle, DetailArticle } from '../data.modle';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   page = 1;
   pageSize = 10;
-  profile = "Eric Simons";
+  profile = 'Eric Simons';
   tag: string;
   boo = true;
   foo = true;
   at: boolean;
   arr = [];
+  o: string;
+  currentPage = 1;
+
   constructor(private dataService: DataService, private router: Router) {
-    const data = localStorage.getItem("myTodo");
+    const data = localStorage.getItem('myTodo');
     if (!data) {
       this.dataService.dataUser = undefined;
     } else {
       this.dataService.dataUser = JSON.parse(data);
     }
-    console.log(this.dataService.dataUser);
   }
-  o: string;
-  currentPage = 1;
+
   ngOnInit() {
     if (!this.dataService.dataUser) {
-      this.dataService.getArticle("", "0").subscribe((res: ListArticle) => {
+      this.dataService.getArticle('', '0').subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
         this.at = true;
       });
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
       this.foo = true;
     } else {
       this.boo = false;
-      this.dataService.getArticleByFeed("0").subscribe((res: ListArticle) => {
+      this.dataService.getArticleByFeed('0').subscribe((res: ListArticle) => {
         this.arr = [];
         this.dataService.listArticle = res;
         for (let i = 0; i < res.articlesCount / 10; i++) {
@@ -51,66 +52,51 @@ export class HomeComponent implements OnInit {
       this.dataService.tags = res.tags;
     });
   }
-  data() {
-    if (this.tag === "") {
-      this.dataService
-        .getArticle(this.tag, "0")
-        .subscribe((res: ListArticle) => {
-          this.arr = [];
-          this.dataService.listArticle = res;
-          for (let i = 0; i < res.articlesCount / 10; i++) {
-            this.arr.push(i + 1);
-          }
-        });
-    } else {
-      this.dataService
-        .getArticle(this.tag, "0")
-        .subscribe((res: ListArticle) => {
-          this.arr = [];
-          this.dataService.listArticle = res;
-          for (let i = 0; i < res.articlesCount / 10; i++) {
-            this.arr.push(i + 1);
-          }
-        });
-    }
-  }
-  changeTag(tag: string, num) {
+
+  changeTag(tag: string, num: any) {
     this.tag = tag;
-    this.o = "0";
+    this.o = '0';
     this.currentPage = 1;
-    if (num != undefined) {
+    if (num !== undefined) {
       this.o = String(Number(this.o) + Number(num) * 10 - 10);
       this.currentPage = num;
     }
     this.dataService.getArticle(tag, this.o).subscribe((res: ListArticle) => {
+      this.arr = [];
       this.dataService.listArticle = res;
+      for (let i = 0; i < res.articlesCount / 10; i++) {
+        this.arr.push(i + 1);
+      }
     });
     this.boo = true;
     this.foo = false;
-    console.log(this.boo && this.foo);
   }
-  showArticleGlobal(num) {
-    this.tag = "";
-    this.o = "0";
+
+  showArticleGlobal(num: any) {
+    this.tag = '';
+    this.o = '0';
     this.currentPage = 1;
-    if (num != undefined) {
+    if (num !== undefined) {
       this.o = String(Number(this.o) + Number(num) * 10 - 10);
       this.currentPage = num;
     }
-    this.dataService.getArticle("", this.o).subscribe((res: ListArticle) => {
+    this.dataService.getArticle('', this.o).subscribe((res: ListArticle) => {
       this.dataService.listArticle = res;
       this.at = true;
-    });
-    this.dataService.getTag().subscribe((res: { tags: string[] }) => {
-      this.dataService.tags = res.tags;
+      this.arr = [];
+      for (let i = 0; i < res.articlesCount / 10; i++) {
+        this.arr.push(i + 1);
+      }
     });
     this.boo = true;
     this.foo = true;
   }
-  showArticleFeed(num) {
-    this.o = "0";
+
+  showArticleFeed(num: any) {
+    this.tag = '';
+    this.o = '0';
     this.currentPage = 1;
-    if (num != undefined) {
+    if (num !== undefined) {
       this.o = String(Number(this.o) + Number(num) * 10 - 10);
       this.currentPage = num;
     }
@@ -125,6 +111,7 @@ export class HomeComponent implements OnInit {
     this.boo = false;
     this.foo = true;
   }
+
   checkAt() {
     if (this.dataService.listArticle.articles[0]) {
       this.at = true;
@@ -132,9 +119,10 @@ export class HomeComponent implements OnInit {
       this.at = false;
     }
   }
+
   changeFavCount(d: DetailArticle) {
     if (!this.dataService.dataUser) {
-      this.router.navigateByUrl("/signin");
+      this.router.navigateByUrl('/signin');
     } else {
       if (d.favorited) {
         d.favorited = false;
@@ -147,6 +135,18 @@ export class HomeComponent implements OnInit {
           .postFavArticle(d.slug)
           .subscribe(res => console.log(res));
       }
+    }
+  }
+
+  paginationFollow(num: any) {
+    if (this.foo) {
+      if (this.boo) {
+        this.showArticleGlobal(num);
+      } else {
+        this.showArticleFeed(num);
+      }
+    } else {
+      this.changeTag(this.tag, num);
     }
   }
 }

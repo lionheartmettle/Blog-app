@@ -17,7 +17,6 @@ export class FavoriteComponent implements OnInit {
   currentPage = 1;
   ngOnInit() {
     this.actRout.parent.paramMap.subscribe((resP: ParamMap) => {
-      console.log(resP.get('profile'));
       this.dataService.getFavoriteArticle(resP.get('profile'), '0').subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
         for (let i = 0; i < res.articlesCount / 5; i++) {

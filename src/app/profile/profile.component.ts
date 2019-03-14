@@ -78,7 +78,6 @@ export class ProfileComponent implements OnInit {
       this.o = String(Number(this.o) + Number(num) * 5 - 5);
     }
     this.actRout.paramMap.subscribe((resP: ParamMap) => {
-      console.log(resP.get('profile'));
       this.dataService.getArticleByProfile(resP.get('profile'), this.o).subscribe((res: ListArticle) => {
         this.dataService.listArticle = res;
       });

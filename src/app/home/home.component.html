@@ -89,7 +89,7 @@
               class="page-item"
               *ngFor="let i of arr"
               [ngClass]="{ active: i === currentPage }"
-              (click)="showArticleGlobal(i)"
+              (click)="paginationFollow(i)"
             >
               <a class="page-link" routerLinkActive="router-link-active">{{
                 i
@@ -107,7 +107,6 @@
               class="tag-pill tag-default"
               *ngFor="let t of dataService.tags"
               (click)="changeTag(t)"
-              (click)="data()"
               >{{ t }}</a
             >
           </div>
