@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DataService } from './data.service';
-import { ListArticle } from './data.modle';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,12 +16,6 @@ export class AppComponent {
       this.dataService.dataUser = JSON.parse(data);
     }
   }
-  // change() {
-  //   this.dataService.boo = true;
-  //   this.dataService.getArticleByProfile(this.dataService.dataUser.user.username, '0').subscribe((atrs: ListArticle) => {
-  //     this.dataService.listArticle = atrs;
-  //   });
-  // }
   watchIn() {
     if (this.dataService.dataUser) {
       if (((new Date()).getTime() - this.dataService.time) > 10000) {

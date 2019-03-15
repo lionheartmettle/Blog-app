@@ -71,11 +71,15 @@ export class ArticleComponent implements OnInit {
     });
   }
   favorite(article: DetailArticle) {
-    article.favorited = true;
-    article.favoritesCount += 1;
-    this.artRoute.paramMap.subscribe((params: ParamMap) => {
-      this.dataService.postFavArticle(params.get('slug')).subscribe((res) => console.log(res));
-    });
+    if (this.dataService.dataUser) {
+      article.favorited = true;
+      article.favoritesCount += 1;
+      this.artRoute.paramMap.subscribe((params: ParamMap) => {
+        this.dataService.postFavArticle(params.get('slug')).subscribe((res) => console.log(res));
+      });
+    } else {
+      this.router.navigateByUrl('/signin');
+    }
   }
   deleteArticle() {
     this.artRoute.paramMap.subscribe((params: ParamMap) => {
